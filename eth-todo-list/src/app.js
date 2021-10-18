@@ -100,5 +100,31 @@ App = {
         const content = $('#newTask').val()
         await App.todoList.createTask(content)
         window.location.reload()
+    },
+
+    toggleCompleted: async (e) => {
+        App.setLoading(true)
+        const taskId = e.target.name 
+        await App.todoList.toggleCompleted(taskId)
+        window.location.reload()
+    },
+
+    setLoading: (boolean) => {
+        App.loading = boolean
+        const loader = $('#loader')
+        const content = $('#content')
+        if (boolean) {
+            loader.show()
+            content.hide()
+        } else {
+            loader.hide()
+            content.show()
+        }
     }
 }
+
+$(() => {
+    $(window).load(() => {
+        App.load()
+    })
+})
